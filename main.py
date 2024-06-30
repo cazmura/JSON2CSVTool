@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+from pandas import json_normalize
 
 # JSONPlaceholder からサンプルのデータを取得する
 url = 'https://jsonplaceholder.typicode.com/todos'
@@ -11,14 +12,14 @@ if response.status_code == 200:
     print("データを取得しました")
 
     # JSON データを pandas の DataFrame に変換
-    df = pd.DataFrame(data)
+    df = json_normalize(data)
 
     # データの確認※無くてもいい
     print("データのプレビュー")
     print(df.head())
 
     # DataFrame を CSV 形式で保存
-    csv_file_path = 'todos.csv'
+    csv_file_path = 'todos_flattened.csv'
     df.to_csv(csv_file_path, index=False)
     print(f"データをCSV形式で{csv_file_path}に保存しました。")
 
